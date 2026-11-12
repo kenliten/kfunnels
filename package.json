@@ -1,0 +1,15 @@
+{
+  "name": "@kfunnels/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nx/js": "24.0.6",
+    "@nx/workspace": "24.0.6",
+    "nx": "24.0.6",
+    "typescript": "~6.0.3"
+  },
+  "packageManager": "npm@11.19.1"
+}
