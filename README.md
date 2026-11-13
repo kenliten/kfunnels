@@ -1,96 +1,165 @@
-# Kfunnels
+# 🚀 K-Funnels AI | ClickFunnels Clone Powered by Genkit & Gemini
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A full-stack, enterprise-grade **ClickFunnels clone** powered by **Firebase Genkit** with **Google Gemini (3.8 / 3.5 / 2.5 Flash)**, **NestJS**, **Mongoose (MongoDB)**, **Angular v22**, and **PrimeNG UI Kit**, unified inside a high-performance **Nx monorepo**.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## ⚡ Core Features
 
-## Run tasks
+- 🎨 **Visual Drag-and-Drop Funnel Builder**:
+  - Live WYSIWYG step designer with multi-device preview (**Desktop**, **Tablet**, **Mobile**).
+  - Add, arrange, edit, and reorder elements: Headlines, Subheadlines, VSL Video Players, Bullet Value Lists, Opt-in Lead Forms, Checkout & Order Bump Modules, Urgency Countdowns, Testimonials, and Guarantee Badges.
+  - Step hierarchy sidebar with real-time conversion rates and visitor metrics.
+  - Interactive Property Inspector for Typography, Colors, Margins, Borders, and Custom CSS.
+- 🤖 **Firebase Genkit + Gemini AI Engines**:
+  - **1-Click AI Funnel Generator**: Generates full high-converting direct-response funnels (Opt-in → VSL Sales Page → Order Checkout with Order Bump → Confirmation Thank You) from product description and audience.
+  - **AI Copywriter Studio**: Generates high-converting headlines, hooks, and bullet copy utilizing proven frameworks: **AIDA** (Attention-Interest-Desire-Action), **PAS** (Problem-Agitate-Solve), and **BAB** (Before-After-Bridge).
+  - **AI CRO Auditor**: Performs real-time Conversion Rate Optimization audits with scoring (Clarity, Urgency, Social Proof, CTA Power, Mobile Readability) and actionable A/B test split suggestions.
+  - Dual-mode architecture: Uses live **Gemini 3.8 / 3.5 / 2.5 Flash** when `GEMINI_API_KEY` is present, with zero-downtime direct-response intelligent fallback if offline.
+- 📦 **Order Bump & Opt-in Capture**:
+  - Dynamic checkout component supporting 1-click **Order Bumps** (e.g., $27 fast-action toolkit).
+  - Friction-free opt-in capture directly synced to the CRM database.
+- 📊 **CRM & Funnel Analytics**:
+  - Live Dashboard with Gross Revenue, Total Visitors, Opt-in Leads, Conversion Rate, and Funnel Breakdown.
+  - Lead Management CRM with CSV export.
+  - Order Transactions ledger with order bump revenue tracking.
+- 🌐 **Live Public Visitor Pages**:
+  - Clean client-facing funnel URLs: `/f/:funnelSlug` and `/f/:funnelSlug/:stepSlug`.
+  - Automatic page view tracking and live lead capture & checkout processing.
 
-To run tasks with Nx use:
+---
 
-```sh
-npx nx <target> <project-name>
+## 🏗️ Architecture & Monorepo Structure
+
+```
+kfunnels/
+├── .agents/skills/genkit/SKILL.md       # Genkit AI development skill
+├── .gemini/skills/genkit/SKILL.md       # Gemini workspace skill
+├── apps/
+│   ├── backend/                        # NestJS + Mongoose + Genkit API
+│   │   └── src/
+│   │       ├── ai/                     # Genkit flows (Gemini Flash, Schemas)
+│   │       ├── funnels/                # Funnels & Steps CRUD, Seeders
+│   │       ├── leads/                  # CRM Opt-in leads tracking
+│   │       ├── orders/                 # Checkout & Order bump processing
+│   │       ├── analytics/              # Dashboard metrics & page views
+│   │       └── schemas/                # Mongoose models (Funnel, Lead, Order)
+│   └── frontend/                       # Angular v22 + PrimeNG
+│       └── src/app/
+│           ├── core/services/          # Angular HTTP services
+│           ├── layout/                 # Topbar, responsive shell
+│           └── pages/
+│               ├── dashboard/          # Performance & revenue analytics
+│               ├── funnels-list/       # Funnels catalogue & category filter
+│               ├── funnel-builder/     # WYSIWYG ClickFunnels-style builder
+│               ├── ai-wizard/          # 1-Click AI Funnel Generator
+│               ├── ai-copywriter/      # AIDA, PAS, BAB copywriting studio
+│               ├── cro-auditor/        # Real-time page audit & A/B testing
+│               ├── contacts/           # Leads CRM table & CSV exporter
+│               ├── orders/             # Order transactions & bumps
+│               └── public-viewer/      # Live visitor-facing funnel pages
+└── libs/
+    └── shared/                         # Domain models, DTOs & TypeScript types
 ```
 
-For example:
+---
 
-```sh
-npx nx build myproject
+## 🛠️ Tech Stack
+
+- **Monorepo**: [Nx 24](https://nx.dev)
+- **Frontend**: [Angular v22](https://angular.dev) (Standalone Components, Signals, Reactive Forms, New Control Flow)
+- **UI Kit**: [PrimeNG 22](https://primeng.org) with `@primeuix/themes` (Aura theme) and PrimeIcons
+- **Backend**: [NestJS 11](https://nestjs.com)
+- **Database**: [Mongoose 8](https://mongoosejs.com) + MongoDB
+- **AI Engine**: [Firebase Genkit](https://firebase.google.com/docs/genkit) + `@genkit-ai/google-genai` (Gemini 3.8 / 3.5 / 2.5 Flash)
+
+---
+
+## 🚀 Quickstart Guide
+
+### 1. Prerequisites
+- **Node.js**: v20+ or v24+
+- **MongoDB**: Active on `mongodb://127.0.0.1:27017/kfunnels`
+
+### 2. Environment Configuration
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+Set your Google Gemini API Key:
+```env
+PORT=3000
+MONGODB_URI=mongodb://127.0.0.1:27017/kfunnels
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```
+*(If `GEMINI_API_KEY` is not provided, K-Funnels automatically activates its built-in direct-response intelligence fallback engine without crashing or failing).*
+
+### 3. Run with Nx
+Start the NestJS backend:
+```bash
+npx nx serve backend
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+Start the Angular v22 frontend:
+```bash
+PORT=4200 npx nx serve frontend --port=4200
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+Open your browser at:
+- **K-Funnels App**: `http://localhost:4200`
+- **Backend API**: `http://localhost:3000/api`
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+---
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
-```
+## 🧠 Genkit Skills Installed in the Project
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+The project includes custom agent skills located at:
+- `.agents/skills/genkit/SKILL.md`
+- `.gemini/skills/genkit/SKILL.md`
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+These guide AI agents and developers in:
+1. Configuring `@genkit-ai/google-genai` and model resolution (`gemini-2.5-flash`, `gemini-3.5-flash`, `gemini-3.8-flash`).
+2. Defining type-safe structured outputs using Zod schemas.
+3. NestJS service encapsulation and error handling.
+4. Prompt architecture for direct-response sales copy and CRO analysis.
 
-## Set up CI!
+---
 
-### Step 1
+## 📡 API Reference
 
-To connect to Nx Cloud, run the following command:
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/funnels` | List all funnels |
+| `POST` | `/api/funnels` | Create a new funnel |
+| `GET` | `/api/funnels/:id` | Get funnel by ID or slug |
+| `PUT` | `/api/funnels/:id` | Update funnel, steps, or elements |
+| `DELETE` | `/api/funnels/:id` | Delete a funnel |
+| `POST` | `/api/funnels/:id/steps` | Add a step to a funnel |
+| `PUT` | `/api/funnels/:id/steps/:stepId` | Update a specific step & layout |
+| `POST` | `/api/ai/generate-funnel` | 1-Click AI Funnel Generation flow |
+| `POST` | `/api/ai/copywriter` | Generate AIDA/PAS/BAB direct-response copy |
+| `POST` | `/api/ai/cro-audit` | Page conversion audit & A/B test variants |
+| `GET` | `/api/leads` | List CRM leads |
+| `POST` | `/api/leads` | Capture opt-in lead and increment conversion |
+| `GET` | `/api/orders` | List customer orders |
+| `POST` | `/api/orders` | Process order checkout & order bumps |
+| `GET` | `/api/analytics/dashboard` | Aggregated revenue and conversion metrics |
+| `POST` | `/api/analytics/track-view` | Track visitor page view for a funnel step |
 
-```sh
-npx nx connect
-```
+---
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## 🧪 Testing the Live Application
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. **AI Funnel Wizard**: Navigate to `http://localhost:4200/ai-wizard`, enter your product details, and watch the AI synthesize the entire funnel hierarchy and copy.
+2. **Funnel Builder**: Navigate to `http://localhost:4200/builder/ai-saas-growth-funnel`, toggle Desktop/Tablet/Mobile viewports, reorder blocks, and click "Audit Page with AI".
+3. **Public Visitor Flow**:
+   - Visit `http://localhost:4200/f/ai-saas-growth-funnel`.
+   - Submit the lead form to enter your CRM.
+   - Proceed to checkout, toggle the $47 Order Bump, and submit the order.
+   - Check `http://localhost:4200/contacts` and `http://localhost:4200/orders` to verify instant real-time recording.
 
-### Step 2
+---
 
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📜 License
+MIT
